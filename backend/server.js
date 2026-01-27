@@ -11,7 +11,6 @@ import productRouter from "./routes/productRoute.js"
 
 
 // App Config
-
 const app = express()
 const port = process.env.PORT || 4000
 connectDB()
@@ -22,7 +21,6 @@ app.use(express.json())
 app.use(cors())
 
 // API endpoint
-
 app.use('/api/user',userRouter)
 app.use('/api/product',productRouter)
 

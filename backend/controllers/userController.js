@@ -21,25 +21,20 @@ const loginUser = async (req, res) => {
       return res.json({ success: "false", msg: "User does not exists" });
     }
 
-    const isMatch = await bcrypt.compare(password,user.password)
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    if(isMatch){
-
-        const token = createToken(user._id);
-        res.json({
-            success:true,
-            token,
-        })
-    } else{
-
-        res.json({success:"false",msg:"Invalid Credentials"})
-
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({
+        success: true,
+        token,
+      });
+    } else {
+      res.json({ success: "false", msg: "Invalid Credentials" });
     }
-
   } catch (error) {
-
-     console.log(error);
-     res.json({success:false,message:error.message})
+    console.log(error);
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -100,6 +95,23 @@ const registerUser = async (req, res) => {
 
 // Route for Admin Login
 
-const loginAdmin = async (req, res) => {};
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.json({ success: true, token });
+    } else{
+      res.json({ success: "false", msg: "Invalid Credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 export { loginUser, registerUser, loginAdmin };
