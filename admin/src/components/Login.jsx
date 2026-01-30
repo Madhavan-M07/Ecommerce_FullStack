@@ -18,7 +18,7 @@ const Login = ({ setToken }) => {
       console.log(res);
       console.log(typeof res.data.success);
 
-      if (res.data.success===true) {
+      if (res.data.success) {
         setToken(res.data.token);
       } else {
 
