@@ -14,8 +14,8 @@ const Add = ({token}) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [subCategory, setSubCategory] = useState("");
+  const [category, setCategory] = useState("Men");
+  const [subCategory, setSubCategory] = useState("Topwear");
   const [bestseller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
@@ -48,8 +48,8 @@ const Add = ({token}) => {
         setName('')
         setDescription('')
         setPrice('')
-        setCategory('')
-        setSubCategory('')
+        setCategory('Men')
+        setSubCategory('Topwear')
         setBestseller(false)
         setSizes([])
         setImage1(false)
@@ -66,7 +66,7 @@ const Add = ({token}) => {
 
     } catch (err) {
       console.log(err);
-      toast.error("err.message");
+      toast.error(err.message);
     }
   };
 
@@ -176,8 +176,8 @@ const Add = ({token}) => {
             value={subCategory}
             className="w-full px-3 py-2"
           >
-            <option value="Men">Topwear</option>
-            <option value="Women">Bottomwear</option>
+            <option value="Topwear">Topwear</option>
+            <option value="Bottomwear">Bottomwear</option>
             <option value="Winterwear">Winterwear</option>
           </select>
         </div>
