@@ -8,11 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
-
-  
-
-
+  const navigate = useNavigate();
 
   const onSubmitHandler = async (e) => {
     try {
@@ -26,15 +22,13 @@ const Login = ({ setToken }) => {
 
       if (res.data.success) {
         setToken(res.data.token);
-         navigate("/add");
+        navigate("/add");
       } else {
-
         toast.error(res.data.msg);
-
       }
     } catch (err) {
-        console.log(err);
-        toast.error(err.message);
+      console.log(err);
+      toast.error(err.message);
     }
   };
 
