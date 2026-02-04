@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
@@ -17,7 +16,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(false);
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
@@ -39,7 +38,33 @@ const ShopContextProvider = (props) => {
     }
 
     setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          {
+            itemId,
+            size,
+          },
+          {
+            headers: {
+              token,
+            },
+          },
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
+
+  console.log(token);
+  
+
+
+
+ 
 
   const getCartCount = () => {
     let totalCount = 0;
@@ -72,9 +97,7 @@ const ShopContextProvider = (props) => {
           if (cartItems[items][item] > 0) {
             totalAmount += itemInfo.price * cartItems[items][item];
           }
-        } catch (error) {
-
-        }
+        } catch (error) {}
       }
     }
     return totalAmount;
@@ -82,27 +105,21 @@ const ShopContextProvider = (props) => {
 
   console.log("backendUrl =", backendUrl);
 
-
   const getProductsData = async () => {
-    try{
-
-      const response = await axios.get(backendUrl + '/api/product/list')
-      if(response.data.success){
+    try {
+      const response = await axios.get(backendUrl + "/api/product/list");
+      if (response.data.success) {
         setProducts(response.data.products);
-      }else{
+      } else {
         toast.error(response.data.message);
       }
 
       console.log(response.data);
-     
-
-
-    }catch(error){
+    } catch (error) {
       console.log(error);
       toast.error(error.message);
-    
     }
-  }
+  };
 
   useEffect(() => {
     getProductsData();
@@ -113,8 +130,6 @@ const ShopContextProvider = (props) => {
       setToken(localStorage.getItem("token"));
     }
   });
-
-
 
   const value = {
     products,
@@ -132,7 +147,7 @@ const ShopContextProvider = (props) => {
     navigate,
     backendUrl,
     token,
-    setToken
+    setToken,
   };
 
   return (
