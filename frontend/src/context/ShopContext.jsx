@@ -1,4 +1,4 @@
-import { createContext, use, useEffect } from "react";
+import { createContext, useEffect } from "react";
 // import { products } from "../assets/assets";
 
 import { useState } from "react";
@@ -190,6 +190,7 @@ const ShopContextProvider = (props) => {
     backendUrl,
     token,
     setToken,
+    setCartItems
     
   };
 

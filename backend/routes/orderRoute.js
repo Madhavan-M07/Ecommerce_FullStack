@@ -18,7 +18,7 @@ orderRouter.post('/razorpay' ,authUser, placeOrderRazorpay)
 
 //User Features
 
-orderRouter.post('/useOrders' ,authUser, userOrders)
+orderRouter.post('/userOrders' ,authUser, userOrders)
 
 
 export default orderRouter;
