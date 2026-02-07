@@ -6,7 +6,6 @@ import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
   const {
@@ -58,34 +57,48 @@ const PlaceOrder = () => {
         }
       }
       let orderData = {
-        address:formData,
-        items:orderItems,
-        amount:getCartAmount() + delivery_fee
-      }
-      switch(method){
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee,
+      };
+      switch (method) {
         //api call for COD
-        case 'cod':
-          const response = await axios.post(backendUrl+ '/api/order/place',orderData,{headers:{token}})
-          if(response.data.success){
-            setCartItems({})
-            navigate('/orders')
-          }else{
-            toast.error(response.data.msg)
+        case "cod":
+          const response = await axios.post(
+            backendUrl + "/api/order/place",
+            orderData,
+            { headers: { token } },
+          );
+          if (response.data.success) {
+            setCartItems({});
+            navigate("/orders");
+          } else {
+            toast.error(response.data.msg);
           }
 
-        break;
+          break;
+        case "stripe":
+          const responstripe = await axios.post(
+            backendUrl + "/api/order/stripe",
+            orderData,
+            { headers: { token } },
+          );
+          if (responstripe.data.success) {
+            const { session_url } = responstripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error(responstripe.data.message);
+          }
+          break;
 
         default:
           break;
-
-
       }
     } catch (error) {
       console.log(error);
       toast.error(error.message);
     }
   };
-
 
   return (
     <form
