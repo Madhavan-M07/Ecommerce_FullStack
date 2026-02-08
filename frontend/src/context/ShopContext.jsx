@@ -123,7 +123,7 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
-  console.log("backendUrl =", backendUrl);
+
 
   const getProductsData = async () => {
     try {
