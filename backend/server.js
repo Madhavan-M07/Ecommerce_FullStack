@@ -27,6 +27,9 @@ app.use(
   })
 );
 
+// Handle preflight explicitly
+app.options("*", cors());
+
 
 // API endpoint
 app.use("/api/user", userRouter);
