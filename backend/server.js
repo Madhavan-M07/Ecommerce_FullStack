@@ -20,11 +20,7 @@ app.use(express.json());
 
 
 app.use(
-  cors({
-    origin: "*",              // Allow all domains
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  cors()
 );
 
 
