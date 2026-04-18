@@ -15,6 +15,7 @@ import SearchBar from "./components/SearchBar";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from "./pages/Verify";
+import Chatbot from "./components/Chatbot";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <ToastContainer/>
       <Navbar />
       <SearchBar />
+      <Chatbot />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
